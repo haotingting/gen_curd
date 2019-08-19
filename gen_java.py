@@ -269,6 +269,41 @@ def java_so(project_path, package_name, java_name, table_name, table_name_cn, pr
     with open(folder_path+'/'+java_name+'So.java', 'w') as f:  # 设置文件对象
         f.write(source)
 
+# 生成so
+def java_so_ant(project_path, package_name, java_name, table_name, table_name_cn, property_list):
+    f = open('template/so_ant.java','r')
+    source = f.read()
+    #包名
+    source = source.replace('#PACKAFE_NAME#',package_name)
+    #类名
+    source = source.replace('#DOMAIN_NAME#', java_name+'So')
+    #注释
+    source = source.replace('#TABLE_NAME_CN#', table_name_cn)
+    # 附加
+    property_info = ''
+    index = 0
+    for property in property_list:
+        if index == 1:
+            property_info += '\t/** ' + property['column_comment'] + ' **/\n'
+            property_info += '\t@Getter\n'
+            property_info += '\t@Setter\n'
+            property_info += '\tprivate ' + property['property_type'] + ' ' + property['property_name'] + ';'
+            break
+        index += 1
+
+    # 属性
+    source = source.replace('#PROPERTY_LIST#', property_info)
+
+    package_path = package_name.replace('.', '/')
+    folder_path = project_path + '/' + package_path
+
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+
+    #写入文件
+    with open(folder_path+'/'+java_name+'So.java', 'w') as f:  # 设置文件对象
+        f.write(source)
+
 # 生成mapper
 def java_mapper(project_path, package_name, java_name, table_name_cn, path_bean, path_so):
     f = open('template/mapper.java','r')
@@ -519,6 +554,72 @@ def java_controller(project_path, package_name, java_name, table_name_cn, domain
     with open(folder_path + '/' + java_name + 'Controller.java', 'w') as f:  # 设置文件对象
         f.write(source)
 
+# 生成controller
+def java_controller_ant(project_path, package_name, java_name, table_name_cn, domain_name, ro_name, so_name, mapper_name,service_name, property_list):
+    f = open('template/controller_ant.java', 'r')
+    source = f.read()
+    # 包名
+    source = source.replace('#PACKAFE_NAME#', package_name)
+    # 类名
+    source = source.replace('#DOMAIN_NAME#', java_name)
+    # 注释
+    source = source.replace('#TABLE_NAME_CN#', table_name_cn)
+
+    # 包名
+    source = source.replace('#PACKAGE_BEAN#', domain_name)
+    source = source.replace('#PACKAGE_RO#', ro_name)
+    source = source.replace('#PACKAGE_SO#', so_name)
+    source = source.replace('#PACKAGE_MAPPER#', mapper_name)
+    source = source.replace('#PACKAGE_SERVICE#', service_name)
+
+    lower_index = 0
+    domain_name_lower = ''
+    for c in java_name:
+        if lower_index == 0:
+            domain_name_lower += c.lower()
+        else:
+            domain_name_lower += c
+        lower_index += 1
+    source = source.replace('#DOMAIN_NAME_LOWER#', domain_name_lower)
+
+    # 生成验证
+    validate_list = ''
+    for index,property in enumerate(property_list):
+        get = handel_property_get(property['property_name'])
+        if index == 0:
+            pass
+        elif index == 1:
+            item = '\t\tif(flag && !isAdd && (null == ro.'+get+' || !WaterValidateUtil.validateMd5Pwd(ro.'+get+'))){\n'
+            item += '\t\t\tflag = false;\n'
+            item += '\t\t\tmsg = "'+property['column_comment']+'有误";\n'
+            item += '\t\t}\n\n'
+            validate_list += item
+        else:
+           if property['property_type'] == 'String':
+               length = int(property['property_len']/2)
+               item = '\t\tif(flag && (null != ro.'+get+' && ro.'+get+'.length() > '+str(length)+')){\n'
+               item += '\t\t\tflag = false;\n'
+               item += '\t\t\tmsg = "'+property['column_comment']+'有误，长度应小于'+str(length)+'个字";\n'
+               item += '\t\t}\n\n'
+               validate_list += item
+           elif property['property_type'] == 'String':
+               pass
+
+
+
+    source = source.replace('#VALIDATE_LIST#', validate_list)
+
+
+    package_path = package_name.replace('.', '/')
+    folder_path = project_path + '/' + package_path
+
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+
+    # 写入文件
+    with open(folder_path + '/' + java_name + 'Controller.java', 'w') as f:  # 设置文件对象
+        f.write(source)
+
 def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, web_pkg):
     # 调用方法
     table_name, table_name_cn, property_list = read_sql(sql_path)
@@ -534,9 +635,14 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
     ro_name = common_pkg + '.bean.ro'+pname
     java_ro(project_path,ro_name,java_name,table_name,table_name_cn,property_list)
     #生成so
+    '''
     project_path = common_path
     so_name = common_pkg + '.bean.so'+pname
     java_so(project_path,so_name,java_name,table_name,table_name_cn,property_list)
+    '''
+    project_path = common_path
+    so_name = common_pkg + '.bean.so'+pname
+    java_so_ant(project_path,so_name,java_name,table_name,table_name_cn,property_list)
     # 生成mapper
     project_path = common_path
     mapper_name = common_pkg+ '.mapper'+pname
@@ -553,16 +659,22 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
     inter_name = common_pkg + '.service'+pname
     java_inter(project_path, inter_name, java_name, table_name_cn, domain_name, ro_name, so_name, mapper_name)
     # 生成controller
+    '''
     project_path = web_path
     controller_name = web_pkg+pname
     java_controller(project_path, controller_name, java_name, table_name_cn, domain_name, ro_name, so_name, mapper_name,service_name, property_list)
+    '''
+    project_path = web_path
+    controller_name = web_pkg + pname
+    java_controller_ant(project_path, controller_name, java_name, table_name_cn, domain_name, ro_name, so_name, mapper_name,
+                    service_name, property_list)
 
 if __name__ == '__main__':
     # SQL文件路径
     sql_path = 'sql/student.sql'
     # 项目路径
-    # project_path = '/Users/duhao/work/intellij_workspace/ant/'
-    project_path = './gen/'
+    project_path = '/Users/duhao/work/intellij_workspace/ant/'
+    # project_path = './gen/'
 
 
     # 通用路径
