@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="#PACKAGE_MAPPER#.#DOMAIN_NAME#Mapper" >
+    <resultMap id="#DOMAIN_NAME_LOWER#ResultMap" type="#PACKAGE_BEAN#.#DOMAIN_NAME#" >
+        <id column="ID" property="id" />
+
+#COLUMN_INFO_LIST#
+        <result column="CREATE_TIME" property="createTime"  />
+        <result column="CREATE_ID" property="createId"  />
+        <result column="MODIFY_TIME" property="modifyTime"  />
+        <result column="MODIFY_ID" property="modifyId"  />
+        <result column="DELETE_FLAG" property="deleteFlag"  />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        ID , #COLUMN_NAME_LIST#
+        CREATE_TIME , CREATE_ID , MODIFY_TIME , MODIFY_ID ,DELETE_FLAG
+    </sql>
+
+    <select id="find#DOMAIN_NAME#ByCode" parameterType="#PACKAGE_SO#.#DOMAIN_NAME#So" resultMap="#DOMAIN_NAME_LOWER#ResultMap" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM #TABLE_NAME_LOWER# t
+        WHERE 1=1
+        AND t.DELETE_FLAG = #{deleteFlag}
+        AND t.#UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
+    </select>
+
+    <select id="find#DOMAIN_NAME#Count" parameterType="#PACKAGE_SO#.#DOMAIN_NAME#So" resultType="java.lang.Long" >
+        SELECT
+        COUNT(*)
+        FROM #TABLE_NAME_LOWER# t
+        WHERE 1=1
+        AND t.DELETE_FLAG = #{deleteFlag}
+        <if test="#UNIQUE_CODE_NAME# != null and #UNIQUE_CODE_NAME# != ''" >
+          AND t.#UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
+        </if>
+    </select>
+
+    <select id="find#DOMAIN_NAME#List" parameterType="#PACKAGE_SO#.#DOMAIN_NAME#So" resultMap="#DOMAIN_NAME_LOWER#ResultMap" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM #TABLE_NAME_LOWER# t
+        WHERE 1=1
+        AND t.DELETE_FLAG = #{deleteFlag}
+        <if test="#UNIQUE_CODE_NAME# != null and #UNIQUE_CODE_NAME# != ''" >
+          AND t.#UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
+        </if>
+        ORDER BY t.CREATE_TIME DESC
+        <if test="startNum != null and pageSize != null">
+            LIMIT #{startNum},#{pageSize}
+        </if>
+    </select>
+
+
+    <insert id="insert#DOMAIN_NAME#" parameterType="#PACKAGE_BEAN#.#DOMAIN_NAME#" >
+        INSERT INTO
+        #TABLE_NAME_LOWER#(#ADD_CODE_COLUMN#
+         CREATE_TIME  , MODIFY_TIME , DELETE_FLAG)
+        VALUES
+        (#ADD_CODE_NAME#
+        #{createTime} , #{modifyTime} , #{deleteFlag})
+    </insert>
+
+
+    <update id="update#DOMAIN_NAME#" parameterType="#PACKAGE_BEAN#.#DOMAIN_NAME#" >
+        UPDATE
+        #TABLE_NAME_LOWER#
+        SET
+#UPDATE_CODE_NAME#
+        MODIFY_TIME = #{modifyTime}
+        WHERE 1=1
+        AND #UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
+        AND DELETE_FLAG = #{deleteFlag}
+    </update>
+
+    <update id="delete#DOMAIN_NAME#" parameterType="#PACKAGE_BEAN#.#DOMAIN_NAME#" >
+        UPDATE
+        #TABLE_NAME_LOWER#
+        SET
+        DELETE_FLAG = '1',
+        MODIFY_TIME = #{modifyTime}
+        WHERE 1=1
+        AND #UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
+        AND DELETE_FLAG = #{deleteFlag}
+    </update>
+
+
+
+</mapper>
