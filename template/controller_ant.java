@@ -42,7 +42,7 @@ public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
     private #DOMAIN_NAME#Service #DOMAIN_NAME_LOWER#Service;
 
     /**
-     * 产品文档单条数据
+     * #TABLE_NAME_CN#单条数据
      *
      * @param code
      * @return
@@ -67,7 +67,7 @@ public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
     }
 
     /**
-     * 查询列表
+     * 查询#TABLE_NAME_CN#列表
      *
      * @param json
      * @return
@@ -116,7 +116,7 @@ public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
 
 
     /**
-     * 新增
+     * 新增#TABLE_NAME_CN#
      *
      * @param json
      * @return
@@ -134,7 +134,7 @@ public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
                 ro = JSON.parseObject(json, #DOMAIN_NAME#Ro.class);
                 WaterBootValidateBean bean = validateBean(ro , true);
                 if(bean.isFlag()){
-                    ro.setCode(WaterUUIDUtil.getUUID());
+                    ro.set#UNIQUE_CODE_UPPER#(WaterUUIDUtil.getUUID());
                     #DOMAIN_NAME_LOWER#Service.insert#DOMAIN_NAME#(ro);
                     result.setCode(WaterBootResultContext.ResultCode.SUCCESS.getCode());
                     msg = "添加成功";
@@ -154,7 +154,7 @@ public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
     }
 
     /**
-     * 更新
+     * 更新#TABLE_NAME_CN#
      *
      * @param json
      * @return
@@ -192,7 +192,7 @@ public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
     }
 
     /**
-     * 删除
+     * 删除#TABLE_NAME_CN#
      *
      * @param code
      * @return
@@ -221,7 +221,7 @@ public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
     }
 
     /**
-     * 验证
+     * 验证#TABLE_NAME_CN#
      * @param ro
      * @return
      */

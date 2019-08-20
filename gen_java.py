@@ -143,6 +143,17 @@ def handel_property_get(name):
             get += c
     return get+'()'
 
+# 生成property名
+def handel_property_upper(name):
+    result = ''
+    for i,c in enumerate(name):
+        if i == 0:
+            result += c.upper()
+        else:
+            result += c
+    return result
+
+
 # 生成domain
 def java_domain(project_path, package_name, java_name, table_name, table_name_cn, property_list):
     f = open('template/domain.java','r')
@@ -376,6 +387,8 @@ def java_mybatis(project_path, java_name, table_name, path_bean, path_so, path_m
 
     update_code_name = ''
 
+    unique_code_upper = ''
+
     column_info_index = 0
     for column in property_list:
         if column_info_index != 0:
@@ -387,6 +400,7 @@ def java_mybatis(project_path, java_name, table_name, path_bean, path_so, path_m
         if column_info_index == 1:
             unique_code_name = column['property_name']
             unique_code_column = column['column_name']
+
         if column_info_index > 1:
             update_code_name += '\t\t'+column['column_name'] + ' = ' + '#{' + column['property_name'] + '},\n'
 
@@ -398,6 +412,7 @@ def java_mybatis(project_path, java_name, table_name, path_bean, path_so, path_m
     source = source.replace('#ADD_CODE_NAME#', add_code_name)
     source = source.replace('#ADD_CODE_COLUMN#', add_code_column)
     source = source.replace('#UPDATE_CODE_NAME#', update_code_name)
+    source = source.replace('#UNIQUE_CODE_UPPER#', unique_code_upper)
 
 
     folder_path = project_path
@@ -411,7 +426,7 @@ def java_mybatis(project_path, java_name, table_name, path_bean, path_so, path_m
 
 
 # 生成service
-def java_service(project_path, package_name, java_name, table_name_cn, domain_name, ro_name,so_name,mapper_name):
+def java_service(project_path, package_name, java_name, table_name_cn, domain_name, ro_name,so_name,mapper_name,property_list):
     f = open('template/service_impl.java','r')
     source = f.read()
     #包名
@@ -421,12 +436,21 @@ def java_service(project_path, package_name, java_name, table_name_cn, domain_na
     #注释
     source = source.replace('#TABLE_NAME_CN#', table_name_cn)
 
+    unique_code_upper = ''
+
+    for index,property in enumerate(property_list):
+        if index == 1:
+            unique_code_name = property['property_name']
+            unique_code_upper = handel_property_upper(unique_code_name)
+
+
     #包名
     source = source.replace('#PACKAGE_BEAN#', domain_name)
     source = source.replace('#PACKAGE_RO#', ro_name)
     source = source.replace('#PACKAGE_SO#', so_name)
     source = source.replace('#PACKAGE_MAPPER#', mapper_name)
     source = source.replace('#PACKAGE_SERVICE#', package_name)
+    source = source.replace('#UNIQUE_CODE_UPPER#', unique_code_upper)
 
 
     lower_index = 0
@@ -584,6 +608,7 @@ def java_controller_ant(project_path, package_name, java_name, table_name_cn, do
 
     # 生成验证
     validate_list = ''
+    unique_code_upper = ''
     for index,property in enumerate(property_list):
         get = handel_property_get(property['property_name'])
         if index == 0:
@@ -594,6 +619,7 @@ def java_controller_ant(project_path, package_name, java_name, table_name_cn, do
             item += '\t\t\tmsg = "'+property['column_comment']+'有误";\n'
             item += '\t\t}\n\n'
             validate_list += item
+            unique_code_upper = handel_property_upper(property['property_name'])
         else:
            if property['property_type'] == 'String':
                length = int(property['property_len']/2)
@@ -608,6 +634,7 @@ def java_controller_ant(project_path, package_name, java_name, table_name_cn, do
 
 
     source = source.replace('#VALIDATE_LIST#', validate_list)
+    source = source.replace('#UNIQUE_CODE_UPPER#', unique_code_upper)
 
 
     package_path = package_name.replace('.', '/')
@@ -653,7 +680,7 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
     # 生成service
     project_path = common_path
     service_name = common_pkg + '.service'+pname
-    java_service(project_path, service_name, java_name, table_name_cn, domain_name, ro_name,so_name,mapper_name)
+    java_service(project_path, service_name, java_name, table_name_cn, domain_name, ro_name,so_name,mapper_name,property_list)
     # 生成inter
     project_path = common_path
     inter_name = common_pkg + '.service'+pname
@@ -671,7 +698,7 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
 
 if __name__ == '__main__':
     # SQL文件路径
-    sql_path = 'sql/student.sql'
+    sql_path = 'sql/user.sql'
     # 项目路径
     project_path = '/Users/duhao/work/intellij_workspace/ant/'
     # project_path = './gen/'

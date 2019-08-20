@@ -47,7 +47,7 @@ public class #DOMAIN_NAME#ServiceImpl implements #DOMAIN_NAME#Service {
      */
     public #DOMAIN_NAME#Ro find#DOMAIN_NAME#ByCode(String code){
         #DOMAIN_NAME#So so = new #DOMAIN_NAME#So();
-        so.setCode(code);
+        so.set#UNIQUE_CODE_UPPER#(code);
         #DOMAIN_NAME# bean = #DOMAIN_NAME_LOWER#Mapper.find#DOMAIN_NAME#ByCode(so);
         #DOMAIN_NAME#Ro ro = waterDozer.convert(bean, #DOMAIN_NAME#Ro.class);
         return ro;
@@ -108,7 +108,7 @@ public class #DOMAIN_NAME#ServiceImpl implements #DOMAIN_NAME#Service {
      */
     public void delete#DOMAIN_NAME#(String code){
         #DOMAIN_NAME# bean = new #DOMAIN_NAME#();
-        bean.setCode(code);
+        bean.set#UNIQUE_CODE_UPPER#(code);
         Date date = new Date();
         bean.setModifyTime(date);
         bean.setDeleteFlag(WaterBootCommonContext.DeleteFlagContext.DELETE_NO.getCode());
