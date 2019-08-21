@@ -56,7 +56,7 @@
     <insert id="insert#DOMAIN_NAME#" parameterType="#PACKAGE_BEAN#.#DOMAIN_NAME#" >
         INSERT INTO
         #TABLE_NAME_LOWER#(#ADD_CODE_COLUMN#
-         CREATE_TIME  , CREATE_ID, MODIFY_TIME , MODIFY_ID DELETE_FLAG)
+         CREATE_TIME  , CREATE_ID, MODIFY_TIME , MODIFY_ID , DELETE_FLAG)
         VALUES
         (#ADD_CODE_NAME#
         #{createTime} , #{createId}, #{modifyTime} , #{modifyId}, #{deleteFlag})
