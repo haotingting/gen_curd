@@ -56,10 +56,10 @@
     <insert id="insert#DOMAIN_NAME#" parameterType="#PACKAGE_BEAN#.#DOMAIN_NAME#" >
         INSERT INTO
         #TABLE_NAME_LOWER#(#ADD_CODE_COLUMN#
-         CREATE_TIME  , MODIFY_TIME , DELETE_FLAG)
+         CREATE_TIME  , CREATE_ID, MODIFY_TIME , MODIFY_ID DELETE_FLAG)
         VALUES
         (#ADD_CODE_NAME#
-        #{createTime} , #{modifyTime} , #{deleteFlag})
+        #{createTime} , #{createId}, #{modifyTime} , #{modifyId}, #{deleteFlag})
     </insert>
 
 
@@ -68,6 +68,7 @@
         #TABLE_NAME_LOWER#
         SET
 #UPDATE_CODE_NAME#
+        MODIFY_ID = #{modifyId},
         MODIFY_TIME = #{modifyTime}
         WHERE 1=1
         AND #UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
@@ -79,6 +80,8 @@
         #TABLE_NAME_LOWER#
         SET
         DELETE_FLAG = '1',
+
+        MODIFY_ID = #{modifyId},
         MODIFY_TIME = #{modifyTime}
         WHERE 1=1
         AND #UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}

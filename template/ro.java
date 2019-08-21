@@ -9,7 +9,7 @@
  ***************************************************************************/
 package #PACKAFE_NAME#;
 
-import com.zjtachao.fish.water.common.base.bean.WaterBootBaseRo;
+import com.zjtachao.fish.ant.common.bean.ro.base.AntBaseRo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +21,7 @@ import lombok.Setter;
  * @author <a href="mailto:dh@zjtachao.com">duhao</a>
  * @since 2.0
  */
-public class #DOMAIN_NAME# extends WaterBootBaseRo {
+public class #DOMAIN_NAME# extends AntBaseRo {
 
     /** 序列号 **/
     private static final long serialVersionUID = 1L;
