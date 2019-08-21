@@ -106,6 +106,8 @@ def handel_type(column_type):
         property_type = 'String'
         length = column_type.replace('varchar', '').replace('(', '').replace(')', '')
         property_len = int(length)
+    elif column_type.find('text') >= 0:
+        property_type = 'String'
     elif column_type.find('decimal') >= 0:
         property_type = 'BigDecimal'
 
@@ -621,7 +623,7 @@ def java_controller_ant(project_path, package_name, java_name, table_name_cn, do
             validate_list += item
             unique_code_upper = handel_property_upper(property['property_name'])
         else:
-           if property['property_type'] == 'String':
+           if property['property_type'] == 'String' and None != property['property_len'] and property['property_len'] > 0 :
                length = int(property['property_len']/2)
                item = '\t\tif(flag && (null != ro.'+get+' && ro.'+get+'.length() > '+str(length)+')){\n'
                item += '\t\t\tflag = false;\n'
@@ -698,7 +700,7 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
 
 if __name__ == '__main__':
     # SQL文件路径
-    sql_path = 'sql/user.sql'
+    sql_path = 'sql/customer_contact.sql'
     # 项目路径
     project_path = '/Users/duhao/work/intellij_workspace/ant/'
     # project_path = './gen/'
@@ -709,7 +711,7 @@ if __name__ == '__main__':
     # 通用包名
     common_pkg = 'com.zjtachao.fish.ant.common'
     # 附加包名
-    pname = '.system'
+    pname = '.customer'
     # mybatis文件路径
     mapper_path = project_path + 'ant-common/src/main'
     # controller 路径
