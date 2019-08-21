@@ -37,7 +37,7 @@ import java.util.List;
 @Path("/admin/system/employee")
 public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
 
-    /** 员工服务 **/
+    /** #TABLE_NAME_CN#服务 **/
     @Autowired
     private #DOMAIN_NAME#Service #DOMAIN_NAME_LOWER#Service;
 
