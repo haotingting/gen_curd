@@ -46,7 +46,15 @@
         <if test="#UNIQUE_CODE_NAME# != null and #UNIQUE_CODE_NAME# != ''" >
           AND t.#UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
         </if>
-        ORDER BY t.CREATE_TIME DESC
+        ORDER BY
+        <if test="sortColumn != null and sortColumn != ''">
+            t.${sortColumn}
+            <if test="sortOrder != null and  sortOrder == 'descend'">
+                DESC
+            </if>
+            ,
+        </if>
+        t.CREATE_TIME DESC
         <if test="startNum != null and pageSize != null">
             LIMIT #{startNum},#{pageSize}
         </if>

@@ -9,7 +9,7 @@
  ***************************************************************************/
 package #PACKAFE_NAME#;
 
-import com.zjtachao.fish.ant.common.util.AntBaseSo;
+import com.zjtachao.fish.ant.common.bean.so.base.AntBaseSo;
 import lombok.Getter;
 import lombok.Setter;
 
