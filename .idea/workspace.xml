@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e48e8731-b3ea-4f0e-b070-b9c10834188f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sql/general.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen_java.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_java.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/mybatis.xml" beforeDir="false" afterPath="$PROJECT_DIR$/template/mybatis.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/so_ant.java" beforeDir="false" afterPath="$PROJECT_DIR$/template/so_ant.java" afterDir="false" />
-    </list>
+    <list default="true" id="e48e8731-b3ea-4f0e-b070-b9c10834188f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+              <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -207,7 +200,7 @@
       <option name="presentableId" value="Default" />
       <updated>1566180306643</updated>
       <workItem from="1566180311047" duration="28340000" />
-      <workItem from="1566440549600" duration="2834000" />
+      <workItem from="1566440549600" duration="3048000" />
     </task>
     <task id="LOCAL-00001" summary="用户">
       <created>1566295780879</created>
@@ -269,17 +262,16 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31174000" />
+    <option name="totallyTimeSpent" value="31388000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="27" y="23" width="1413" height="877" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.24215901" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.24215901" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.4433121" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.4433121" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Python Console" order="4" />
@@ -460,7 +452,7 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
+          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
