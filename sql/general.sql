@@ -10,6 +10,7 @@ create table ANT_GENERAL
    CATEGORY             varchar(100) comment '分类',
    NUMBER               varchar(100) comment '代码',
    NAME                 varchar(500) comment '名称',
+   VALUE                varchar(500) comment '数值',
    GENERAL_ORDER        integer comment '排序',
    IS_PRIORITY          integer comment '是否优先 0-否 1-是',
    DISABLED             integer comment '是否停用 0-否 1-是',

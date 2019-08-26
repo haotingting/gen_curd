@@ -88,7 +88,9 @@ public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
                     msg = "参数格式有误";
                 }
                 if(flag){
-                    so.setPageIndex(so.getPageNo());
+                    if(null != so.getPageNo() && so.getPageNo() >=0){
+                        so.setPageIndex(so.getPageNo());
+                    }
                     Long count = #DOMAIN_NAME_LOWER#Service.find#DOMAIN_NAME#Count(so);
                     List<#DOMAIN_NAME#Ro> #DOMAIN_NAME_LOWER#List = null;
                     if(count.longValue() > 0){
@@ -109,7 +111,7 @@ public class #DOMAIN_NAME#Controller extends WaterBootBaseController {
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
             result.setCode(WaterBootResultContext.ResultCode.ERROR.getCode());
-            result.setMsg("服务器出错");
+            result.setMsg("未知错误");
         }
         return result;
     }
