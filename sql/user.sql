@@ -22,6 +22,7 @@ create table ANT_USER
    OFFLINE_SCHEDULE_3   integer comment '班期修改待审不可上线 0-否 1-是',
    OP_POLICY            varchar(500) comment '计调政策 多个以逗号分隔',
    SALES_POLICY         varchar(500) comment '销售政策 多个以逗号分隔',
+   IS_HEAD              integer comment '是否是主管 0(false)-否 1(true)-是',
    REMARK               varchar(1000) comment '备注',
    CREATE_TIME          datetime comment '创建时间',
    CREATE_ID            varchar(50) comment '创建者',
