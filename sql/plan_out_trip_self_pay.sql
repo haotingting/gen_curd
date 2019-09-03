@@ -14,6 +14,7 @@ create table ANT_PLAN_OUT_TRIP_SELF_PAY
    ITEM_NAME            varchar(1000) comment '项目名称和内容',
    COST                 decimal(15,2) comment '费用',
    CURRENCY             varchar(50) comment '币种',
+   MINUTE               integer comment '项目时长-分钟',
    PAY_DESC             text comment '说明',
    PAY_ORDER            integer comment '排序',
    CREATE_TIME          datetime comment '创建时间',

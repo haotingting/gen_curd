@@ -13,7 +13,6 @@ create table ANT_PLAN_OUT_TRIP_VISA
    TYPE                 integer comment '签证类型 1-旅游 2-个人旅游签证 2-团队旅游签证 3-商务签证 4-探亲签证 9-其他',
    PROCESS_DAYS         integer comment '预计办理天数',
    VALIDITY_PERIOD      varchar(100) comment '有效期',
-   MINUTE               integer comment '最长停留时间/分钟',
    MAX_STAY_DAYS        integer comment '最多停留天数',
    ENTER_TIMES          integer comment '入境次数',
    CONSULAR             varchar(500) comment '受理领区',

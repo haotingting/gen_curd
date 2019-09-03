@@ -700,7 +700,7 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
 
 if __name__ == '__main__':
     # SQL文件路径
-    sql_path = 'sql/plan_out_edition_wifi.sql'
+    sql_path = 'sql/plan_out_trip_self_pay.sql'
     # 项目路径
     project_path = '/Users/duhao/work/intellij_workspace/ant/'
     # project_path = './gen/'
