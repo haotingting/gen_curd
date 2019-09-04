@@ -14,6 +14,7 @@ import #PACKAGE_RO#.#DOMAIN_NAME#Ro;
 import #PACKAGE_SO#.#DOMAIN_NAME#So;
 import #PACKAGE_MAPPER#.#DOMAIN_NAME#Mapper;
 import #PACKAGE_SERVICE#.#DOMAIN_NAME#Service;
+import com.zjtachao.fish.ant.common.util.AntUserLocal;
 import com.zjtachao.fish.water.common.base.context.WaterBootCommonContext;
 import com.zjtachao.fish.water.common.data.WaterDozer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,8 @@ public class #DOMAIN_NAME#ServiceImpl implements #DOMAIN_NAME#Service {
         Date date = new Date();
         bean.setCreateTime(date);
         bean.setModifyTime(date);
+        bean.setCreateId(AntUserLocal.getLocalUserId());
+        bean.setModifyId(AntUserLocal.getLocalUserId());
         bean.setDeleteFlag(WaterBootCommonContext.DeleteFlagContext.DELETE_NO.getCode());
         #DOMAIN_NAME_LOWER#Mapper.insert#DOMAIN_NAME#(bean);
     }
@@ -97,6 +100,7 @@ public class #DOMAIN_NAME#ServiceImpl implements #DOMAIN_NAME#Service {
         #DOMAIN_NAME# bean = waterDozer.convert(ro, #DOMAIN_NAME#.class);
         Date date = new Date();
         bean.setModifyTime(date);
+        bean.setModifyId(AntUserLocal.getLocalUserId());
         bean.setDeleteFlag(WaterBootCommonContext.DeleteFlagContext.DELETE_NO.getCode());
         #DOMAIN_NAME_LOWER#Mapper.update#DOMAIN_NAME#(bean);
     }
@@ -111,6 +115,7 @@ public class #DOMAIN_NAME#ServiceImpl implements #DOMAIN_NAME#Service {
         bean.set#UNIQUE_CODE_UPPER#(code);
         Date date = new Date();
         bean.setModifyTime(date);
+        bean.setModifyId(AntUserLocal.getLocalUserId());
         bean.setDeleteFlag(WaterBootCommonContext.DeleteFlagContext.DELETE_NO.getCode());
         #DOMAIN_NAME_LOWER#Mapper.delete#DOMAIN_NAME#(bean);
     }
