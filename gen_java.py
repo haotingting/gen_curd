@@ -54,6 +54,7 @@ def read_sql(file_path):
 def column_info(column_list):
     property_list = []
     for column in column_list:
+        print(column)
         column_name = column[0]
         column_type = column[1]
         column_comment = column[2]
@@ -700,7 +701,7 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
 
 if __name__ == '__main__':
     # SQL文件路径
-    sql_path = 'sql/permission_rel.sql'
+    sql_path = 'sql/product_visa.sql'
     # 项目路径
     project_path = '/Users/duhao/work/intellij_workspace/ant/'
     # project_path = './gen/'
@@ -711,7 +712,7 @@ if __name__ == '__main__':
     # 通用包名
     common_pkg = 'com.zjtachao.fish.ant.common'
     # 附加包名
-    pname = '.system'
+    pname = '.product'
     # mybatis文件路径
     mapper_path = project_path + 'ant-common/src/main'
     # controller 路径

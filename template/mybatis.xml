@@ -17,6 +17,12 @@
         CREATE_TIME , CREATE_ID , MODIFY_TIME , MODIFY_ID ,DELETE_FLAG
     </sql>
 
+    <sql id="Query_List" >
+        <if test="#UNIQUE_CODE_NAME# != null and #UNIQUE_CODE_NAME# != ''" >
+          AND t.#UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
+        </if>
+    </sql>
+
     <select id="find#DOMAIN_NAME#ByCode" parameterType="#PACKAGE_SO#.#DOMAIN_NAME#So" resultMap="#DOMAIN_NAME_LOWER#ResultMap" >
         SELECT
         <include refid="Base_Column_List" />
@@ -32,9 +38,7 @@
         FROM #TABLE_NAME_LOWER# t
         WHERE 1=1
         AND t.DELETE_FLAG = #{deleteFlag}
-        <if test="#UNIQUE_CODE_NAME# != null and #UNIQUE_CODE_NAME# != ''" >
-          AND t.#UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
-        </if>
+        <include refid="Query_List"></include>
     </select>
 
     <select id="find#DOMAIN_NAME#List" parameterType="#PACKAGE_SO#.#DOMAIN_NAME#So" resultMap="#DOMAIN_NAME_LOWER#ResultMap" >
@@ -43,9 +47,7 @@
         FROM #TABLE_NAME_LOWER# t
         WHERE 1=1
         AND t.DELETE_FLAG = #{deleteFlag}
-        <if test="#UNIQUE_CODE_NAME# != null and #UNIQUE_CODE_NAME# != ''" >
-          AND t.#UNIQUE_CODE_COLUMN# = #{#UNIQUE_CODE_NAME#}
-        </if>
+        <include refid="Query_List"></include>
         ORDER BY
         <if test="sortColumn != null and sortColumn != ''">
             t.${sortColumn}
