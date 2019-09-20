@@ -1,9 +1,9 @@
-drop table if exists ANT_POLICY_SALES;
+drop table if exists ANT_POLICY_REWARD;
 
 /*==============================================================*/
-/* Table: ANT_POLICY_SALES                                      */
+/* Table: ANT_POLICY_REWARD                                     */
 /*==============================================================*/
-create table ANT_POLICY_SALES
+create table ANT_POLICY_REWARD
 (
    ID                   bigint not null auto_increment comment '主键',
    POLICY_CODE          varchar(50) comment '政策编码',
@@ -13,10 +13,9 @@ create table ANT_POLICY_SALES
    PRODUCT_FROM_DEPT    text comment '产品来源部门 JSON',
    APPLY_SALES          integer comment '适用于销售商 0-否 1-是',
    APPLY_DIRECT         integer comment '适用于直销客户 0-否 1-是',
-   CHIEF_AMOUNT         decimal(15,2) comment '首席销售金额',
-   CHIEF_PERCENT        decimal(15,2) comment '首席销售百分比',
-   ASSISTANT_AMOUNT     decimal(15,2) comment '助手金额',
-   ASSISTANT_PERCENT    decimal(15,2) comment '助手百分比',
+   TYPE                 integer comment '类型 1-控位计调 2-操作计调 3-首席销售 4-销售助手',
+   AMOUNT               decimal(15,2) comment '控卫计调金额',
+   PERCENT              decimal(15,2) comment '控位计调百分比',
    REMARK               varchar(500) comment '内注',
    CREATE_TIME          datetime comment '创建时间',
    CREATE_ID            varchar(50) comment '创建者',
@@ -26,4 +25,4 @@ create table ANT_POLICY_SALES
    primary key (ID)
 );
 
-alter table ANT_POLICY_SALES comment '销售政策表';
+alter table ANT_POLICY_REWARD comment '计调政策表';
