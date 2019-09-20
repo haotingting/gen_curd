@@ -405,7 +405,9 @@ def java_mybatis(project_path, java_name, table_name, path_bean, path_so, path_m
             unique_code_column = column['column_name']
 
         if column_info_index > 1:
-            update_code_name += '\t\t'+column['column_name'] + ' = ' + '#{' + column['property_name'] + '},\n'
+            update_code_name += '\t\t<if test="'+column['property_name']+' != null" >\n'
+            update_code_name += '\t\t\t'+column['column_name'] + ' = ' + '#{' + column['property_name'] + '},\n'
+            update_code_name += '\t\t</if>\n'
 
         column_info_index += 1
     source = source.replace('#COLUMN_INFO_LIST#', column_info_list)
@@ -650,73 +652,77 @@ def java_controller_ant(project_path, package_name, java_name, table_name_cn, do
     with open(folder_path + '/' + java_name + 'Controller.java', 'w') as f:  # 设置文件对象
         f.write(source)
 
-def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, web_pkg):
+def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, web_pkg, full_flag):
     # 调用方法
     table_name, table_name_cn, property_list = read_sql(sql_path)
     java_name = handel_java_name(table_name)
 
 
     #生成domain
+
     project_path = common_path
     domain_name = common_pkg + '.bean.domain'+pname
     java_domain(project_path,domain_name,java_name,table_name,table_name_cn,property_list)
+
     #生成ro
     project_path = common_path
     ro_name = common_pkg + '.bean.ro'+pname
     java_ro(project_path,ro_name,java_name,table_name,table_name_cn,property_list)
+
     #生成so
-    '''
-    project_path = common_path
-    so_name = common_pkg + '.bean.so'+pname
-    java_so(project_path,so_name,java_name,table_name,table_name_cn,property_list)
-    '''
-    project_path = common_path
-    so_name = common_pkg + '.bean.so'+pname
-    java_so_ant(project_path,so_name,java_name,table_name,table_name_cn,property_list)
+    if full_flag:
+        project_path = common_path
+        so_name = common_pkg + '.bean.so'+pname
+        java_so_ant(project_path,so_name,java_name,table_name,table_name_cn,property_list)
+
     # 生成mapper
-    project_path = common_path
-    mapper_name = common_pkg+ '.mapper'+pname
-    java_mapper(project_path, mapper_name, java_name, table_name_cn, domain_name,so_name)
+    if full_flag:
+        project_path = common_path
+        mapper_name = common_pkg+ '.mapper'+pname
+        java_mapper(project_path, mapper_name, java_name, table_name_cn, domain_name,so_name)
+
     # 生成mybatis
     project_path = mapper_path + '/resources/mybatis/mapper'
     java_mybatis(project_path, java_name, table_name, domain_name,so_name,mapper_name,property_list)
+
     # 生成service
-    project_path = common_path
-    service_name = common_pkg + '.service'+pname
-    java_service(project_path, service_name, java_name, table_name_cn, domain_name, ro_name,so_name,mapper_name,property_list)
+    if full_flag:
+        project_path = common_path
+        service_name = common_pkg + '.service'+pname
+        java_service(project_path, service_name, java_name, table_name_cn, domain_name, ro_name,so_name,mapper_name,property_list)
+
     # 生成inter
-    project_path = common_path
-    inter_name = common_pkg + '.service'+pname
-    java_inter(project_path, inter_name, java_name, table_name_cn, domain_name, ro_name, so_name, mapper_name)
+    if full_flag:
+        project_path = common_path
+        inter_name = common_pkg + '.service'+pname
+        java_inter(project_path, inter_name, java_name, table_name_cn, domain_name, ro_name, so_name, mapper_name)
+
     # 生成controller
-    '''
-    project_path = web_path
-    controller_name = web_pkg+pname
-    java_controller(project_path, controller_name, java_name, table_name_cn, domain_name, ro_name, so_name, mapper_name,service_name, property_list)
-    '''
-    project_path = web_path
-    controller_name = web_pkg + pname
-    java_controller_ant(project_path, controller_name, java_name, table_name_cn, domain_name, ro_name, so_name, mapper_name,
-                    service_name, property_list)
+    if full_flag:
+        project_path = web_path
+        controller_name = web_pkg + pname
+        java_controller_ant(project_path, controller_name, java_name, table_name_cn, domain_name, ro_name, so_name, mapper_name,
+                        service_name, property_list)
 
 if __name__ == '__main__':
     # SQL文件路径
-    sql_path = 'sql/product_visa.sql'
+    sql_path = 'sql/plan_order_wifi_detail.sql'
     # 项目路径
     project_path = '/Users/duhao/work/intellij_workspace/ant/'
-    # project_path = './gen/'
+    #project_path = './gen/'
 
+    full_flag = True
 
     # 通用路径
     common_path = project_path + 'ant-common/src/main/java'
     # 通用包名
     common_pkg = 'com.zjtachao.fish.ant.common'
     # 附加包名
-    pname = '.product'
+    pname = '.order'
     # mybatis文件路径
     mapper_path = project_path + 'ant-common/src/main'
     # controller 路径
     web_path = project_path + 'ant-manage/src/main/java'
     # controller 包名
     web_pkg = 'com.zjtachao.fish.ant.manage.web'
-    gen_execute(sql_path, common_path, common_pkg, pname, mapper_path, web_path, web_pkg)
+    gen_execute(sql_path, common_path, common_pkg, pname, mapper_path, web_path, web_pkg, full_flag)
