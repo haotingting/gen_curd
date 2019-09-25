@@ -7,6 +7,7 @@ create table ANT_CUSTOMER_CONTACT
 (
    ID                   bigint not null auto_increment comment '主键',
    CONTACT_CODE         varchar(50) comment '客户编码',
+   ITEM_CODE            varchar(50) comment '项目编码',
    KIND                 integer comment '客户类型 0-普通 1-负责人',
    NAME                 varchar(100) comment '姓名',
    DUTIES               varchar(200) comment '职务',

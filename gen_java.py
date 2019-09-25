@@ -670,15 +670,16 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
     java_ro(project_path,ro_name,java_name,table_name,table_name_cn,property_list)
 
     #生成so
+
+    project_path = common_path
+    so_name = common_pkg + '.bean.so'+pname
     if full_flag:
-        project_path = common_path
-        so_name = common_pkg + '.bean.so'+pname
         java_so_ant(project_path,so_name,java_name,table_name,table_name_cn,property_list)
 
     # 生成mapper
+    project_path = common_path
+    mapper_name = common_pkg+ '.mapper'+pname
     if full_flag:
-        project_path = common_path
-        mapper_name = common_pkg+ '.mapper'+pname
         java_mapper(project_path, mapper_name, java_name, table_name_cn, domain_name,so_name)
 
     # 生成mybatis
@@ -706,7 +707,7 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
 
 if __name__ == '__main__':
     # SQL文件路径
-    sql_path = 'sql/seller_first.sql'
+    sql_path = 'sql/seller_item_rebate.sql'
     # 项目路径
     project_path = '/Users/duhao/work/intellij_workspace/ant/'
     #project_path = './gen/'
@@ -718,7 +719,7 @@ if __name__ == '__main__':
     # 通用包名
     common_pkg = 'com.zjtachao.fish.ant.common'
     # 附加包名
-    pname = '.system'
+    pname = '.customer'
     # mybatis文件路径
     mapper_path = project_path + 'ant-common/src/main'
     # controller 路径
