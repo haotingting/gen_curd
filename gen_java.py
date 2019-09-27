@@ -707,12 +707,12 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
 
 if __name__ == '__main__':
     # SQL文件路径
-    sql_path = 'sql/seller_item_rebate.sql'
+    sql_path = 'sql/seller_item.sql'
     # 项目路径
     project_path = '/Users/duhao/work/intellij_workspace/ant/'
     #project_path = './gen/'
 
-    full_flag = True
+    full_flag = False
 
     # 通用路径
     common_path = project_path + 'ant-common/src/main/java'
