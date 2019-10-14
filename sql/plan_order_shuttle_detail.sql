@@ -6,8 +6,9 @@ drop table if exists ANT_PLAN_ORDER_SHUTTLE_DETAIL;
 create table ANT_PLAN_ORDER_SHUTTLE_DETAIL
 (
    ID                   bigint not null auto_increment comment '主键',
-   ORDER_NUMBER         varchar(50) comment '订单号',
+   ORDER_CODE           varchar(50) comment '订单编码',
    SHUTTLE_CODE         varchar(50) comment '接送编码',
+   DETAIL_ORDER         integer comment '排序',
    CERT_NUMBER          varchar(100) comment '证件号码',
    CREATE_TIME          datetime comment '创建时间',
    CREATE_ID            varchar(50) comment '创建者',

@@ -707,19 +707,19 @@ def gen_execute(sql_path, common_path, common_pkg, pname, mapper_path,web_path, 
 
 if __name__ == '__main__':
     # SQL文件路径
-    sql_path = 'sql/guide.sql'
+    sql_path = 'sql/plan_order_wifi_detail.sql'
     # 项目路径
     project_path = '/Users/duhao/work/intellij_workspace/ant/'
     #project_path = './gen/'
 
-    full_flag = True
+    full_flag = False
 
     # 通用路径
     common_path = project_path + 'ant-common/src/main/java'
     # 通用包名
     common_pkg = 'com.zjtachao.fish.ant.common'
     # 附加包名
-    pname = '.system'
+    pname = '.order'
     # mybatis文件路径
     mapper_path = project_path + 'ant-common/src/main'
     # controller 路径

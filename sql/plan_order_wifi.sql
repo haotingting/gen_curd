@@ -6,8 +6,9 @@ drop table if exists ANT_PLAN_ORDER_WIFI;
 create table ANT_PLAN_ORDER_WIFI
 (
    ID                   bigint not null auto_increment comment '主键',
-   ORDER_NUMBER         varchar(50) comment '订单号',
+   ORDER_CODE           varchar(50) comment '订单编码',
    WIFI_CODE            varchar(50) comment 'WIFI编码',
+   WIFI_ORDER           integer comment '排序',
    NUMBERS              integer comment '数量',
    REMARK               text comment '备注',
    CREATE_TIME          datetime comment '创建时间',

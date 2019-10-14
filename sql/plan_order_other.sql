@@ -6,8 +6,9 @@ drop table if exists ANT_PLAN_ORDER_OTHER;
 create table ANT_PLAN_ORDER_OTHER
 (
    ID                   bigint not null auto_increment comment '主键',
-   ORDER_NUMBER         varchar(50) comment '订单号',
+   ORDER_CODE           varchar(50) comment '订单编码',
    ITEM_TYPE            integer comment '项目类型 1-保险 2-接送 3-WIFI',
+   ITEM_ORDER           integer comment '项目排序',
    ITEM_AMOUNT_1        decimal(15,2) comment '数量1',
    ITEM_AMOUNT_2        decimal(15,2) comment '数量2',
    ITEM_AMOUNT_3        decimal(15,2) comment '数量3',

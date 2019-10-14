@@ -1,15 +1,14 @@
-drop table if exists ANT_PLAN_ORDER_ROOM;
+drop table if exists ANT_USER_SELLER_FIRST;
 
 /*==============================================================*/
-/* Table: ANT_PLAN_ORDER_ROOM                                   */
+/* Table: ANT_USER_SELLER_FIRST                                 */
 /*==============================================================*/
-create table ANT_PLAN_ORDER_ROOM
+create table ANT_USER_SELLER_FIRST
 (
    ID                   bigint not null auto_increment comment '主键',
-   ORDER_NUMBER         varchar(50) comment '订单号',
-   EDITION_CODE         varchar(50) comment '售价组编码',
-   PRICE_CODE           varchar(50) comment '价格编码',
-   CERT_NUMBER          varchar(100) comment '证件号码',
+   SELLER_CODE          varchar(50) comment '销售商编码',
+   USER_CODE            varchar(50) comment '用户编码',
+   FIRST_ORDER          integer comment '排序',
    CREATE_TIME          datetime comment '创建时间',
    CREATE_ID            varchar(50) comment '创建者',
    MODIFY_TIME          datetime comment '修改时间',
@@ -18,4 +17,4 @@ create table ANT_PLAN_ORDER_ROOM
    primary key (ID)
 );
 
-alter table ANT_PLAN_ORDER_ROOM comment '出境游订单单房差表';
+alter table ANT_USER_SELLER_FIRST comment '我的常用库--销售商';
